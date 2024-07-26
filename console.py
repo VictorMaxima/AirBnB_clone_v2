@@ -11,6 +11,33 @@ from models.city import City
 from models.amenity import Amenity
 from models.review import Review
 
+def split_arg(arg):
+    """ Contains a function to split args """
+    try:
+        param, value = arg.split('=')
+    except ValueError:
+        return
+    if value[0] == "\"":
+        raw_value = value[1: len(value) - 1]
+        new_value = ""
+        for i in raw_value:
+            if i == "_":
+                new_value += " "
+            else:
+                new_value += i
+        value = new_value
+    elif "." in value:
+        try:
+            value = float(value)
+        except ValueError:
+            return []
+    else:
+        try:
+            value = int(value)
+        except ValueError:
+            return []
+    
+    return [param, value]
 
 class HBNBCommand(cmd.Cmd):
     """ Contains the functionality for the HBNB console"""
@@ -118,10 +145,22 @@ class HBNBCommand(cmd.Cmd):
         if not args:
             print("** class name missing **")
             return
+        arg_list = []
+        if " " in args:
+            arg_list = args.split(" ")
+            args = arg_list[0]
         elif args not in HBNBCommand.classes:
             print("** class doesn't exist **")
             return
         new_instance = HBNBCommand.classes[args]()
+        attr_list = dir(HBNBCommand.classes[args])
+        param_val_list = []
+        if arg_list:
+            for arg in arg_list[1:]:
+                param_val_list.append(split_arg(arg))
+        for param_val in param_val_list:
+            if param_val and param_val[0] in attr_list:
+                new_instance.__dict__[param_val[0]] = param_val[1]
         storage.save()
         print(new_instance.id)
         storage.save()
