@@ -4,10 +4,10 @@
 apt-get update
 apt-get install -y nginx
 
-mkdir -p /data/webstatic
-mkdir -p /data/webstatic/releases/test
-mkdir -p /data/webstatic/shared
-echo "VictorMaxima is here" > /data/webstatic/releases/test/index.html
+mkdir -p /data/web_static
+mkdir -p /data/web_static/releases/test
+mkdir -p /data/web_static/shared
+echo "VictorMaxima is here" > /data/web_static/releases/test/index.html
 ln -sf /data/web_static/releases/test/ /data/web_static/current
 
 chown -R ubuntu /data
