@@ -8,9 +8,10 @@ mkdir -p /data/webstatic
 mkdir -p /data/webstatic/releases/test
 mkdir -p /data/webstatic/shared
 echo "VictorMaxima is here" > /data/webstatic/releases/test/index.html
+ln -sf /data/web_static/releases/test/ /data/web_static/current
 
-chown -R ubuntu /data/
-chgrp -R ubuntu /data/
+chown -R ubuntu /data
+chgrp -R ubuntu /data
 
 printf %s "server {
     listen 80 default_server;
