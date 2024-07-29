@@ -13,9 +13,10 @@ class FileStorage:
         if cls:
             result_dict = {}
             for k in FileStorage.__objects.keys():
+                if type(cls) != str:
+                    cls = cls.__name__
                 if cls in k:
                     result_dict[k] = FileStorage.__objects[k]
-            print(result_dict)
             return result_dict
         return FileStorage.__objects
 
