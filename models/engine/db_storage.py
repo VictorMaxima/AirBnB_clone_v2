@@ -4,6 +4,13 @@ import os
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 from models.base_model import Base
+from models.base_model import BaseModel
+from models.user import User
+from models.place import Place
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.review import Review
 
 class DBStorage:
     """ DBStorage class for database storage """
@@ -13,10 +20,10 @@ class DBStorage:
 
     def __init__(self):
         """ Initialize the DBStorage instance """
-        user = os.getenv('HBNB_MYSQL_USER')
-        password = os.getenv('HBNB_MYSQL_PWD')
-        host = os.getenv('HBNB_MYSQL_HOST')
-        database = os.getenv('HBNB_MYSQL_DB')
+        user = os.getenv("HBNB_MYSQL_USER")
+        password = os.getenv("HBNB_MYSQL_PWD")
+        host = os.getenv("HBNB_MYSQL_HOST")
+        database = os.getenv("HBNB_MYSQL_DB")
         self.__engine = create_engine(
             f"mysql+mysqldb://{user}:{password}@{host}/{database}",
             pool_pre_ping=True

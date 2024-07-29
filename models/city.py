@@ -9,7 +9,3 @@ class City(BaseModel, Base):
     __tablename__ = "cities"
     state_id = Column(String(60), nullable=False)
     name = Column(String(128), nullable=False)
-    state = relationship('State', back_populates='cities')
-    __table_args__ = (
-        {'foreign_keys': [state_id]},
-    )
