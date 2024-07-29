@@ -27,6 +27,7 @@ try:
     fs.all("State")
 except:
     print("`all` is not a public instance method allowing a class parameter")
-fs.all("State")
-
+a = State()
+a.save()
+fs.delete(a)
 print("OK", end="")
