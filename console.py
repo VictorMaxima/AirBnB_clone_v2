@@ -150,7 +150,7 @@ class HBNBCommand(cmd.Cmd):
         if " " in args:
             arg_list = args.split(" ")
             args = arg_list[0]
-        elif args not in HBNBCommand.classes:
+        if args not in HBNBCommand.classes:
             print("** class doesn't exist **")
             return
         new_instance = HBNBCommand.classes[args]()

@@ -12,6 +12,7 @@ from models.city import City
 from models.amenity import Amenity
 from models.review import Review
 
+
 class DBStorage:
     """ DBStorage class for database storage """
 
@@ -33,7 +34,8 @@ class DBStorage:
 
     def all(self, cls=None):
         """ Query on the current database session (self.__session) """
-        classes = {'User': User, 'State': State, 'City': City, 'Amenity': Amenity, 'Place': Place, 'Review': Review}
+        classes = {'User': User, 'State': State, 'City': City, 'Amenity':
+                   Amenity, 'Place': Place, 'Review': Review}
         if cls:
             objects = self.__session.query(classes[cls]).all()
         else:
@@ -56,8 +58,10 @@ class DBStorage:
             self.__session.delete(obj)
 
     def reload(self):
-        """ Create all tables in the database and the current database session """
+        """ Create all tables in the database and
+            the current database session """
         Base.metadata.create_all(self.__engine)
-        session_factory = sessionmaker(bind=self.__engine, expire_on_commit=False)
+        session_factory = sessionmaker(bind=self.__engine,
+                                       expire_on_commit=False)
         Session = scoped_session(session_factory)
         self.__session = Session()

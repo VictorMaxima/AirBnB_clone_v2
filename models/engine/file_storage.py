@@ -13,7 +13,7 @@ class FileStorage:
         if cls:
             result_dict = {}
             for k in FileStorage.__objects.keys():
-                if type(cls) != str:
+                if cls is str:
                     cls = cls.__name__
                 if cls in k:
                     result_dict[k] = FileStorage.__objects[k]
@@ -62,3 +62,20 @@ class FileStorage:
         if obj:
             del FileStorage.__objects[obj.to_dict()["__class__"] + '.' + obj.id]
 
+    def cities(self, state_id):
+        """ returns all cities with state id """
+        cities = self.all(City)
+        result_list = []
+        for i in cities:
+            if i.state_id == state_id:
+                result_list.append(i)
+        return result_list
+
+    def reviews(self, place_id):
+        """ returns all reviews with matching place id """
+        reviews = self.all(Review)
+        result_list = []
+        for i in reviewss:
+            if i.place_id == place_id:
+                result_list.append(i)
+        return result_list
