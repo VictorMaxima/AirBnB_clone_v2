@@ -8,9 +8,10 @@ from sqlalchemy.orm import relationship
 
 class Place(BaseModel, Base):
     """ A place to stay """
-    __tablename__ = 'places'
-    city_id = Column(String(60), ForeignKey("cities.id"), nullable=False)
-    user_id = Column(String(60), ForeignKey("users.id"), nullable=False)
+    __tablename__ = "places"
+    __table_args__ = (
+    {'mysql_default_charset': 'latin1'}
+)
     name = Column(String(128), nullable=False)
     description = Column(String(1024))
     number_rooms = Column(Integer, nullable=False, default=0)
@@ -19,6 +20,8 @@ class Place(BaseModel, Base):
     price_by_night = Column(Integer, nullable=False, default=0)
     latitude = Column(Float)
     longitude = Column(Float)
+    user_id = Column(String(60), ForeignKey("users.id"), nullable=False)
+    city_id = Column(String(60), ForeignKey("cities.id"), nullable=False)
     user = relationship("User", back_populates="places")
     cities = relationship("City", back_populates="places")
     reviews = relationship('Review', back_populates='place',
