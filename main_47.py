@@ -1,33 +1,30 @@
-#!/usr/bin/python3
-""" Test
-"""
-from models.engine.file_storage import FileStorage
+from models import storage
 from models.state import State
-from inspect import isfunction
+from models.city import City
 
+"""
+ Objects creations
+"""
+state_1 = State(name="California")
+print("New state: {}".format(state_1))
+state_1.save()
+state_2 = State(name="Arizona")
+print("New state: {}".format(state_2))
+state_2.save()
 
-all_fct = FileStorage.__dict__.get("all")
-if all_fct is None:
-    print("Missing public instance method `all`")
-    exit(1)
+city_1_1 = City(state_id=state_1.id, name="Napa")
+print("New city: {} in the state: {}".format(city_1_1, state_1))
+city_1_1.save()
+city_1_2 = City(state_id=state_1.id, name="Sonoma")
+print("New city: {} in the state: {}".format(city_1_2, state_1))
+city_1_2.save()
+city_2_1 = City(state_id=state_2.id, name="Page")
+print("New city: {} in the state: {}".format(city_2_1, state_2))
+city_2_1.save()
 
-if not isfunction(all_fct):
-    print("`all` is not a function")
-    exit(1)
-
-fs = FileStorage()
-try:
-    fs.all()
-except:
-    print("`all` is not a public instance method allowing no parameter")
-    exit(1)
-
-try:
-    fs.all(State)
-    fs.all("State")
-except:
-    print("`all` is not a public instance method allowing a class parameter")
-a = State()
-a.save()
-fs.delete(a)
-print("OK", end="")
+print("")
+print(State)
+all_states = storage.all(State)
+for state_id, state in all_states.items():
+    for city in state.cities:
+        print("Find the city {} in the state {}".format(city, state))

@@ -10,11 +10,21 @@ class FileStorage:
 
     def all(self, cls=None):
         """Returns a dictionary of models currently in storage"""
+        from models.base_model import BaseModel
+        from models.user import User
+        from models.place import Place
+        from models.state import State
+        from models.city import City
+        from models.amenity import Amenity
+        from models.review import Review
         if cls:
             result_dict = {}
-            for k in FileStorage.__objects.keys():
-                if cls is str:
+            if cls is not str:
+                try:
                     cls = cls.__name__
+                except AttributeError:
+                    pass
+            for k in FileStorage.__objects.keys():
                 if cls in k:
                     result_dict[k] = FileStorage.__objects[k]
             return result_dict
