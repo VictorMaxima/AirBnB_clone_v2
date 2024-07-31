@@ -19,7 +19,7 @@ def clean(self):
 def list_states():
     print_list = []
     for k, v in storage.all("State").items():
-        print_list.append(v.to_dict())
+            print_list.append(v.to_dict())
     print_list.sort(key=lambda x: x['name'])
     return render_template("7-states_list.html", states = print_list)
 
