@@ -79,3 +79,6 @@ class FileStorage:
             if i.place_id == place_id:
                 result_list.append(i)
         return result_list
+
+    def close(self):
+        self.reload()
