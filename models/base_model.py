@@ -25,12 +25,12 @@ class BaseModel:
         else:
             try:
                 kwargs['updated_at'] = datetime.strptime(kwargs['updated_at'],
-                                                        '%Y-%m-%dT%H:%M:%S.%f')
+                                                         '%Y-%m-%dT%H:%M:%S.%f')
             except KeyError:
                 kwargs["updated_at"] = datetime.now()
             try:
                 kwargs['created_at'] = datetime.strptime(kwargs['created_at'],
-                                                         '%Y-%m-%dT%H:%M:%S.%f')
+                                                        '%Y-%m-%dT%H:%M:%S.%f')
             except KeyError:
                 kwargs['created_at'] = datetime.now()
             try:
@@ -39,6 +39,7 @@ class BaseModel:
                 pass
             if 'id' not in kwargs.keys():
                 kwargs['id'] = str(uuid.uuid4())
+            print(kwargs)
             self.__dict__.update(kwargs)
 
     def __str__(self):
