@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+""" module for a script that sets up a simple flask application """
 import flask
 from flask import Flask, render_template
 from models import storage
@@ -10,6 +12,7 @@ def index():
     """ view function for the home page """
     return "Hello HBNB!"
 
+
 @app.teardown_appcontext
 def clean(self):
     storage.close()
@@ -19,9 +22,9 @@ def clean(self):
 def list_states():
     print_list = []
     for k, v in storage.all("State").items():
-            print_list.append(v.to_dict())
+        print_list.append(v.to_dict())
     print_list.sort(key=lambda x: x['name'])
-    return render_template("7-states_list.html", states = print_list)
+    return render_template("7-states_list.html", states=print_list)
 
 
 if __name__ == "__main__":
