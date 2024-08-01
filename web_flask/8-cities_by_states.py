@@ -38,6 +38,7 @@ def list_cities_by_states():
         for k, v in cities.items():
             if v.to_dict().get("state_id") == result_dict.get("id"):
                 city_dict_list.append(v.to_dict())
+                city_dict_list.sort(key=lambda x: x['name'])
         result_dict['cities'] = city_dict_list
         print_list.append(result_dict)
     print_list.sort(key=lambda x: x['name'])
